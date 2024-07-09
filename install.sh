@@ -7,7 +7,7 @@ py_address="/root/sqlar/sqlar.py"
 env_address="/root/sqlar/.env"
 venv_name="/root/sqlar/sqlar_venv"
 marzban_env_file="/opt/marzban/.env"
-version="1.1.1"
+version="1.0.1"
 
 # Define colors and Helper functions for colored messages
 colors=( "\033[1;31m" "\033[1;35m" "\033[1;92m" "\033[38;5;46m" "\033[1;38;5;208m" "\033[1;36m" "\033[0m" )
@@ -228,29 +228,31 @@ uninstall_bot() {
 
     # Stop the bot process
     log "Checking if the bot process is running..."
-    bot_pid=$(pgrep -f "$py_address")
-    if [ -n "$bot_pid" ]; then
-        log "Bot process found (PID: $bot_pid). Attempting to stop it..."
+    bot_pids=$(pgrep -f "$py_address")
+    if [ -n "$bot_pids" ]; then
+        log "Bot process(es) found (PIDs: $bot_pids). Attempting to stop them..."
         
-        # Attempt to stop the process
-        kill $bot_pid
-        log "Waiting for process to stop..."
-        sleep 5
-        
-        # Check if the process was stopped
-        if kill -0 $bot_pid 2>/dev/null; then
-            error "Failed to stop the bot process. Attempting force stop..."
-            kill -9 $bot_pid
+        for pid in $bot_pids; do
+            # Attempt to stop the process
+            kill $pid
+            log "Waiting for process $pid to stop..."
             sleep 2
-        fi
-        
-        if kill -0 $bot_pid 2>/dev/null; then
-            error "Failed to stop the bot process. It may require manual intervention."
-        else
-            success "Bot process stopped successfully."
-        fi
+            
+            # Check if the process was stopped
+            if kill -0 $pid 2>/dev/null; then
+                log "Process $pid still running. Attempting force stop..."
+                kill -9 $pid
+                sleep 1
+            fi
+            
+            if kill -0 $pid 2>/dev/null; then
+                error "Failed to stop bot process $pid. It may require manual intervention."
+            else
+                success "Bot process $pid stopped successfully."
+            fi
+        done
     else
-        log "Bot process is not running."
+        log "No bot processes found running."
     fi
 
     log "Continuing with uninstallation..."
