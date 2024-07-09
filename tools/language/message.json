@@ -1,0 +1,20 @@
+{
+    "EN": {
+        "START": "Welcome to Sqlar!\nPlease read the Marzban documentation first.",
+        "BLOCK": "Unfortunately, you do not have permission to use this bot.",
+        "SUCCESS_NO_MESSAGE": "The command was successfully executed. There are no results to display.",
+        "ERROR": "System message:"
+    },
+    "PR": {
+        "START": "به اسکولار خوش آمدید!\nلطفا ابتدا داکیومنت مرزبان را مطالعه کنید.",
+        "BLOCK": "متأسفانه شما اجازه استفاده از این ربات را ندارید.",
+        "SUCCESS_NO_MESSAGE": "دستور با موفقیت اجرا شد. نتیجه‌ای برای نمایش وجود ندارد.",
+        "ERROR": "پیام سیستم:"
+    },
+    "RU": {
+        "START": "Добро пожаловать в Sqlar!\nПожалуйста, сначала прочтите документацию Marzban.",
+        "BLOCK": "К сожалению, у вас нет разрешения на использование этого бота.",
+        "SUCCESS_NO_MESSAGE": "Команда успешно выполнена. Нет результатов для отображения.",
+        "ERROR": "Системное сообщение:"
+    }
+}
